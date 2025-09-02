@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled/Elements/CustomButtonWidget.dart';
 import 'package:untitled/Elements/CustomContainerWidget.dart';
 import 'package:untitled/Elements/CustomTextFieldWidget.dart';
 import 'package:untitled/Elements/CustomTextWidget.dart';
+import 'package:untitled/Views/PostScreen.dart';
+
+import '../Provider/AuthProvider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -14,6 +18,29 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+  void _login() async {
+       setState(() => isLoading = true);
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final success = await authProvider.login(
+      emailController.text.trim(),
+      passwordController.text.trim(),
+    );
+
+    setState(() => isLoading = false);
+
+    if (success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const PostScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Login failed. Try again.")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,18 +106,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
             MyButton(
               btnLabel: "Login",
               onPressed: () {
-                if (emailController.text.isEmpty &&
-                    passwordController.text.isEmpty) {
+                if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+                  // Show dialog if one or both fields are empty
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: MyText(text: "Note", size: 22, fontWeight: FontWeight.bold,),
+                      title: MyText(
+                        text: "Note",
+                        size: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                       content: MyText(text: "Please enter email and password."),
                       actions: [
-                        MyButton(btnLabel: "OK",buttonPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 50), onPressed: () => Navigator.pop(context), )
+                        MyButton(
+                          btnLabel: "OK",
+                          buttonPadding: EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 50,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        )
                       ],
                     ),
                   );
+                } else {
+                  // ✅ Only call login when fields are filled
+                  _login();
                 }
               },
               buttonPadding: EdgeInsets.symmetric(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'CustomImageView.dart';
 /// Container Widget
 class MyContainer extends StatelessWidget {
   final Widget? child;
@@ -38,13 +40,13 @@ class MyContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectiveDecoration =
         decoration ??
-        BoxDecoration(
-          color: color,
-          borderRadius: borderRadius,
-          border: border,
-          gradient: gradient,
-          boxShadow: boxShadow,
-        );
+            BoxDecoration(
+              color: color,
+              borderRadius: borderRadius,
+              border: border,
+              gradient: gradient,
+              boxShadow: boxShadow,
+            );
 
     Widget container = Container(
       width: width,
@@ -61,61 +63,69 @@ class MyContainer extends StatelessWidget {
     if (onTap != null) {
       container = GestureDetector(onTap: onTap, child: container);
     }
-
     return container;
   }
 }
 
 /// Icon Container Widget
-// class MyIconContainer extends StatelessWidget {
-//   final EdgeInsetsGeometry? padding;
-//   final EdgeInsetsGeometry? margin;
-//   final AlignmentGeometry? alignment;
-//   final double? width;
-//   final double? height;
-//   final double? iconHeight;
-//   final BoxDecoration? decoration;
-//   final Color? color;
-//   final Color? iconColor;
-//   final BorderRadiusGeometry? borderRadius;
-//   final Border? border;
-//   final GestureTapCallback? onTap;
-//   final String iconAsset;
-//
-//   const MyIconContainer({
-//     super.key,
-//     this.width,
-//     this.height,
-//     this.decoration,
-//     this.color,
-//     this.padding,
-//     this.margin,
-//     this.alignment,
-//     this.borderRadius,
-//     this.border,
-//     this.onTap,
-//     this.iconHeight,
-//     required this.iconAsset,
-//     this.iconColor,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MyContainer(
-//       onTap: onTap,
-//       height: height ?? 48,
-//       width: width ?? 48,
-//       alignment: Alignment.center,
-//       decoration: BoxDecoration(
-//         border: border,
-//         borderRadius: borderRadius ?? BorderRadius.circular(12),
-//         color: color ?? Colors.greenAccent,
-//       ),
-//       child: CommonImageView(
-//         imagePath: iconAsset,
-//         height: iconHeight ?? 24,
-//         svgColor: iconColor ?? FrontendConfigs.kPrimaryColor,
-//       ),
-//     );
-//   }
-// }
+class MyIconContainer extends StatelessWidget {
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final AlignmentGeometry? alignment;
+  final IconData? icon;
+  final double? iconSize;
+  final double? width;
+  final double? height;
+  final double? iconHeight;
+  final BoxDecoration? decoration;
+  final Color? color;
+  final Color? iconColor;
+  final BorderRadiusGeometry? borderRadius;
+  final Border? border;
+  final GestureTapCallback? onTap;
+  final String? iconAsset;
+
+  const MyIconContainer({
+    super.key,
+    this.width,
+    this.icon,
+    this.iconSize,
+    this.height,
+    this.decoration,
+    this.color,
+    this.padding,
+    this.margin,
+    this.alignment,
+    this.borderRadius,
+    this.border,
+    this.onTap,
+    this.iconHeight,
+    this.iconAsset,
+    this.iconColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MyContainer(
+      onTap: onTap,
+      height: height ?? 30,
+      width: width ?? 30,
+      alignment: Alignment.center,
+      decoration:
+      decoration ??
+          BoxDecoration(
+            border: border,
+            borderRadius: borderRadius ?? BorderRadius.circular(12),
+            color: color ?? Colors.transparent,
+          ),
+      child:
+      icon != null
+          ? Icon(icon, size: iconSize, color: iconColor)
+          : CommonImageView(
+        imagePath: iconAsset,
+        height: iconHeight ?? 24,
+        // svgColor: iconColor ?? colors.textColorTypeGray,
+      ),
+    );
+  }
+}

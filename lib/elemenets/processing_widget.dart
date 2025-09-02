@@ -1,0 +1,35 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class ProcessingWidget extends StatelessWidget {
+  const ProcessingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.black.withOpacity(0.5)),
+      child: const Padding(
+        padding: EdgeInsets.all(12.0),
+        child: CupertinoActivityIndicator(
+          radius: 15,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+
+class ProcessingWidget2 extends StatelessWidget {
+  const ProcessingWidget2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CupertinoActivityIndicator(
+      radius: 30,
+      color: Colors.black,
+    );
+  }
+}
