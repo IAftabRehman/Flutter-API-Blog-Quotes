@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled/Provider/PostProvider.dart';
 import '../Elements/CustomContainerWidget.dart';
