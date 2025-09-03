@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as storage;
+import 'package:untitled/Views/UserProfile.dart';
 import '../Elements/CustomContainerWidget.dart';
 import '../Elements/CustomTextWidget.dart';
-import '../Views/ProfileScreen.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String? title;
@@ -11,6 +13,7 @@ class AppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final storage = const FlutterSecureStorage();
     return Row(
       children: [
         !profileIcon ? IconButton(onPressed: (){
@@ -31,7 +34,18 @@ class AppBarWidget extends StatelessWidget {
         ) : SizedBox(),
         const SizedBox(width: 10),
         profileIcon ? MyIconContainer(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen())),
+          onTap: () async {
+            String? userId = await storage.read(key: "user_id");
+
+            if (userId != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(userId: int.parse(userId)),
+                ),
+              );
+            }
+          },
           icon: Icons.person,
           iconColor: Colors.white,
           iconSize: 30,

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:untitled/Provider/PostProvider.dart';
 import 'package:untitled/Provider/QuoteProvider.dart';
 import 'package:untitled/Provider/UserProvider.dart';
-import 'package:untitled/Views/UserProfile.dart';
-
+import 'package:untitled/Views/PostScreen.dart';
+import 'package:untitled/Views/SignInScreen.dart';
 import 'Provider/AuthProvider.dart';
 
 void main() {
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: UserProfileScreen(userId: 1),
+      home: SignInScreen(),
     );
   }
 }

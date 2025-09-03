@@ -12,27 +12,36 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> login(String username, String password) async {
     final url = Uri.parse("https://dummyjson.com/auth/login");
 
-    final response = await http.post(
-      url,
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        "username": username,
-        "password": password,
-      }),
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+          "username": username,
+          "password": password,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      _token = data['token'];
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
 
-      await _storage.write(key: "auth_token", value: _token);
+        _token = data['token'];
 
-      notifyListeners();
-      return true;
-    } else {
+        await _storage.write(key: "auth_token", value: _token);
+        await _storage.write(key: "user_email", value: username);
+        await _storage.write(key: "user_id", value: data['id'].toString());
+
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      debugPrint("Login failed: $e");
       return false;
     }
   }
+
 
 
   Future<void> logout() async {
@@ -40,4 +49,6 @@ class AuthProvider extends ChangeNotifier {
     await _storage.delete(key: "auth_token");
     notifyListeners();
   }
+
+
 }

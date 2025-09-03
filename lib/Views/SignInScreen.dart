@@ -4,18 +4,17 @@ import 'package:untitled/Elements/CustomButtonWidget.dart';
 import 'package:untitled/Elements/CustomContainerWidget.dart';
 import 'package:untitled/Elements/CustomTextFieldWidget.dart';
 import 'package:untitled/Elements/CustomTextWidget.dart';
-import 'package:untitled/Views/PostScreen.dart';
-
+import 'package:untitled/Views/BottomBar.dart';
 import '../Provider/AuthProvider.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isLoading = false;
@@ -33,7 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (success) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const PostScreen()),
+        MaterialPageRoute(builder: (_) => const BottomBar()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -59,22 +58,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MyText(
-              text: "Welcome Back",
-              size: 20,
+              text: "Welcome Back 👋",
+              size: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.redAccent,
+              color: Colors.white30,
+              fontStyle: FontStyle.italic
             ),
             MyText(
               text: "Please log in to continue",
               size: 22,
               fontWeight: FontWeight.w600,
-              color: Colors.redAccent,
+              color: Colors.white24,
+              fontStyle: FontStyle.italic,
             ),
             const SizedBox(height: 30),
             MyTextField(
               controller: emailController,
-              backgroundColor: Colors.amber,
-              hintText: "Enter Email",
+              backgroundColor: Colors.blueGrey,
+              hintText: "Enter User Name",
               hintStyle: TextStyle(
                 color: Colors.black54,
                 fontWeight: FontWeight.bold,
@@ -91,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const SizedBox(height: 10),
             MyTextField(
               controller: passwordController,
-              backgroundColor: Colors.amber,
+              backgroundColor: Colors.blueGrey,
               hintText: "Enter Password",
               hintStyle: TextStyle(
                 color: Colors.black54,
@@ -105,18 +106,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             MyButton(
               btnLabel: "Login",
+              textColor: Colors.black,
+              color: Colors.grey,
               onPressed: () {
                 if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-                  // Show dialog if one or both fields are empty
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: MyText(
-                        text: "Note",
-                        size: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      content: MyText(text: "Please enter email and password."),
+                      content: MyText(
+                          paddingTop: 60,
+                          text: "Please enter email and password."),
                       actions: [
                         MyButton(
                           btnLabel: "OK",
@@ -130,7 +129,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   );
                 } else {
-                  // ✅ Only call login when fields are filled
                   _login();
                 }
               },

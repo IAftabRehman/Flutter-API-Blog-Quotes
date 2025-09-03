@@ -16,7 +16,6 @@ class QuotesScreen extends StatefulWidget {
 class _QuotesScreenState extends State<QuotesScreen> {
   void initState() {
     super.initState();
-    // ✅ Fetch quotes automatically when screen loads
     Future.microtask(() =>
         Provider.of<QuotesProvider>(context, listen: false).fetchAllQuotes());
   }
