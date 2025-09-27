@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../Models/PostModel.dart';
-import 'package:http/http.dart' as http;
 import '../Models/CommentModel.dart';
 
 class PostServices {

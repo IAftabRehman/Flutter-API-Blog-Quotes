@@ -52,6 +52,38 @@ It helps you to:
 
 ---
 
+### 📱 Screenshots
+
+| Login Screen                                               |
+|------------------------------------------------------------|
+| <img src="assets/screenShots/loginScreen.png" width="250"> |
+
+| Home Screen                                               |
+|-----------------------------------------------------------|
+| <img src="assets/screenShots/homeScreen.png" width="250"> |
+
+| Quotes Screen                                              |
+|------------------------------------------------------------|
+| <img src="assets/screenShots/quoteScreen.png" width="250"> |
+
+| Post Creation Screen                                        |
+|-------------------------------------------------------------|
+| <img src="assets/screenShots/postCreation.png" width="250"> |
+
+| Post Created Screen                                        |
+|------------------------------------------------------------|
+| <img src="assets/screenShots/postCreated.png" width="250"> |
+
+| Post Open Screen                                              |
+|---------------------------------------------------------------|
+| <img src="assets/screenShots/postOpenScreen.png" width="250"> |
+
+| User Profile Screen                                              |
+|------------------------------------------------------------------|
+| <img src="assets/screenShots/userProfileScreen.png" width="250"> |
+
+---
+
 ### 🏁 Getting Started
 
 To get started with this project, follow these steps:

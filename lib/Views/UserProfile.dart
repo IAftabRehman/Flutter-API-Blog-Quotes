@@ -72,7 +72,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           CircleAvatar(
                             radius: 60,
                             backgroundImage: fetch.image != null
-                                ? NetworkImage(fetch.image!)
+                                ? NetworkImage(fetch.image)
                                 : null,
                             child: fetch.image == null
                                 ? const Icon(Icons.person, size: 60)
@@ -80,13 +80,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                           const SizedBox(height: 20),
                           MyText(
-                            text: fetch.name ?? "Unknown",
+                            text: fetch.name,
                             size: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                           MyText(
-                            text: "@${fetch.username ?? "username"}",
+                            text: "@${fetch.username}",
                             size: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -101,7 +101,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                               MyText(
-                                text: fetch.email ?? "-",
+                                text: fetch.email,
                                 size: 16,
                                 color: Colors.white60,
                               ),
@@ -116,7 +116,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                               MyText(
-                                text: fetch.phone ?? "-",
+                                text: fetch.phone,
                                 size: 16,
                                 color: Colors.white60,
                               ),

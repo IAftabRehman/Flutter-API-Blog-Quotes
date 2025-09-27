@@ -72,137 +72,141 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Scaffold(
-      body: SafeArea(
-        child: MyContainer(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF0f0c29), Color(0xFF302b63), Color(0xFF24243e)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: MyContainer(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF0f0c29), Color(0xFF302b63), Color(0xFF24243e)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
-          ),
-          child: Column(
-            children: [
-              AppBarWidget(
-                title: "Daily Stores",
-                searchIcon: true,
-                profileIcon: true,
-              ),
-              const SizedBox(height: 10),
-              GestureDetector(
-                onTap: _captureOwnerId,
-                child: _ownerIdImage == null
-                    ? MyContainer(
-                        width: double.infinity,
-                        height: 150,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 1, color: Colors.blue),
-                        child: Center(
-                          child: MyIconContainer(
-                            icon: Icons.image,
-                            iconColor: Colors.blue,
-                            iconSize: 50,
+            child: Column(
+              children: [
+                AppBarWidget(
+                  title: "Daily Stores",
+                  searchIcon: true,
+                  profileIcon: true,
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: _captureOwnerId,
+                  child: _ownerIdImage == null
+                      ? MyContainer(
+                          width: double.infinity,
+                          height: 150,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(width: 1, color: Colors.blue),
+                          child: Center(
+                            child: MyIconContainer(
+                              icon: Icons.image,
+                              iconColor: Colors.blue,
+                              iconSize: 50,
+                            ),
                           ),
-                        ),
-                      )
-                    : Stack(
-                        children: [
-                          MyContainer(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(10),
-                            border: Border.all(width: 1, color: Colors.blue),
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              File(_ownerIdImage!.path),
+                        )
+                      : Stack(
+                          children: [
+                            isKeyboardOpen ? SizedBox() : 
+                            MyContainer(
                               width: double.infinity,
-                              height: 150,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Positioned(
-                            top: 5,
-                            right: 5,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                                size: 30,
+                              padding: EdgeInsets.all(10),
+                              border: Border.all(width: 1, color: Colors.blue),
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                File(_ownerIdImage!.path),
+                                width: double.infinity,
+                                height: 150,
+                                fit: BoxFit.contain,
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _ownerIdImage = null;
-                                });
-                              },
                             ),
-                          ),
-                        ],
-                      ),
-              ),
-              const SizedBox(height: 10),
-              MyTextField(
-                controller: titleController,
-                hintText: "Title...",
-                textColor: Colors.white,
-                hintStyle: TextStyle(color: Colors.white),
-                cursorColor: Colors.blue,
-                backgroundColor: Colors.transparent,
-                textFieldBorder: Border.all(color: Colors.blue),
-              ),
-              const SizedBox(height: 10),
-              MyTextField(
-                controller: contentController,
-                hintText: "Content...",
-                maxLines: 10,
-                textColor: Colors.white,
-                hintStyle: TextStyle(color: Colors.white),
-                cursorColor: Colors.blue,
-                backgroundColor: Colors.transparent,
-                textFieldBorder: Border.all(color: Colors.blue),
-              ),
-              const SizedBox(height: 10),
-              customDropdown("categories", selectedPrimaryCrop, primaryCrop, (
-                value,
-              ) {
-                setState(() {
-                  selectedPrimaryCrop = value;
-                });
-              }),
-              const SizedBox(height: 10),
-              Wrap(
-                spacing: 8,
-                children: tags.map((tag) {
-                  return Chip(
-                    label: Text(tag),
-                    deleteIcon: const Icon(Icons.close),
-                    onDeleted: () {
-                      setState(() {
-                        tags.remove(tag);
-                      });
-                    },
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: tagController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: "Add Tags",
+                            Positioned(
+                              top: 5,
+                              right: 5,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _ownerIdImage = null;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  controller: titleController,
+                  hintText: "Title...",
+                  textColor: Colors.white,
                   hintStyle: TextStyle(color: Colors.white),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.add, color: Colors.white),
-                    onPressed: addTag,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.blue),
+                  cursorColor: Colors.blue,
+                  backgroundColor: Colors.transparent,
+                  textFieldBorder: Border.all(color: Colors.blue),
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  controller: contentController,
+                  hintText: "Content...",
+                  maxLines: 10,
+                  textColor: Colors.white,
+                  hintStyle: TextStyle(color: Colors.white),
+                  cursorColor: Colors.blue,
+                  backgroundColor: Colors.transparent,
+                  textFieldBorder: Border.all(color: Colors.blue),
+                ),
+                const SizedBox(height: 10),
+                customDropdown("categories", selectedPrimaryCrop, primaryCrop, (
+                  value,
+                ) {
+                  setState(() {
+                    selectedPrimaryCrop = value;
+                  });
+                }),
+                const SizedBox(height: 10),
+                Wrap(
+                  spacing: 8,
+                  children: tags.map((tag) {
+                    return Chip(
+                      label: Text(tag),
+                      deleteIcon: const Icon(Icons.close),
+                      onDeleted: () {
+                        setState(() {
+                          tags.remove(tag);
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: tagController,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Add Tags",
+                    hintStyle: TextStyle(color: Colors.white),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.add, color: Colors.white),
+                      onPressed: addTag,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
